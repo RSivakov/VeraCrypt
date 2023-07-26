@@ -26,8 +26,8 @@ jobs:
     - name: Upload release artifact
       uses: svenstaro/upload-release-action@v2
       with:
-        file: src/veracrypt
-        file_glob: true
+        file: src/Main/veracrypt
+        file_glob: false
         tag: ${{ github.ref }}
         body: |
           ${{ steps.get_release_body.outputs.body }}
