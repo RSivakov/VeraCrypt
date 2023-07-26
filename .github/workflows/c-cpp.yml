@@ -1,0 +1,21 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: cd src
+      run: cd ./src
+    - name: install dependencies
+      run: sudo apt install build-essential g++ yasm pkg-config libwxgtk3.0-gtk3-dev libfuse-dev libpcsclite-dev
+    - name: make
+      run: make
