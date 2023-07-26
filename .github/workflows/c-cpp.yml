@@ -1,10 +1,10 @@
-name: C/C++ CI
-
+name: Release Workflow
 on:
-  push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  release:
+    types:
+      - created
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -20,4 +20,15 @@ jobs:
         cd ./src
         make -j
     - name: list directory
-      run: ls -r
+      run: |
+        cd ./src
+        ls -R
+    - name: Upload release artifact
+      uses: svenstaro/upload-release-action@v2
+      with:
+        file: src/veracrypt
+        file_glob: true
+        tag: ${{ github.ref }}
+        body: |
+          ${{ steps.get_release_body.outputs.body }}
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
