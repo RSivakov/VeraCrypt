@@ -13,9 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: cd src
+    - name: src directory
       run: cd ./src
-    - name: install dependencies
+    - name: Install dependencies
       run: sudo apt install build-essential g++ yasm pkg-config libwxgtk3.0-gtk3-dev libfuse-dev libpcsclite-dev
     - name: make
       run: make
+    - name: list directory
+      run: ls
