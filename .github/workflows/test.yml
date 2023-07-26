@@ -1,0 +1,21 @@
+name: Test build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: sudo apt install build-essential g++ yasm pkg-config libwxgtk3.0-gtk3-dev libfuse-dev libpcsclite-dev wx3.0-headers
+    - name: make
+      run: |
+        cd ./src
+        make -j WXSTATIC=1
