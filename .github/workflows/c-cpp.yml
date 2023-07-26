@@ -18,6 +18,6 @@ jobs:
     - name: make
       run: |
         cd ./src
-        make
+        make -j
     - name: list directory
       run: ls -r
