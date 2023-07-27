@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install dependencies
       run: |
-        sudo apt install build-essential g++ yasm pkg-config libfuse-dev libpcsclite-dev
+        sudo apt install build-essential g++ yasm pkg-config libfuse-dev libpcsclite-dev libgtk2.0-0 libgtk2.0-dev
         sudo apt-key adv --fetch-keys https://repos.codelite.org/CodeLite.asc
         sudo apt-add-repository 'deb https://repos.codelite.org/wx3.2.0/ubuntu/ jammy universe'
         sudo apt-get update
