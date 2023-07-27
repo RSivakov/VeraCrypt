@@ -15,7 +15,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install dependencies
       run: |
-        sudo apt install build-essential g++ yasm pkg-config libfuse-dev libpcsclite-dev
+        sudo apt install build-essential g++ yasm pkg-config libfuse-dev libpcsclite-dev libgtk2.0-0 libgtk2.0-dev
+        sudo apt-key adv --fetch-keys https://repos.codelite.org/CodeLite.asc
         sudo apt-add-repository 'deb https://repos.codelite.org/wx3.2.0/ubuntu/ jammy universe'
         sudo apt-get update
         sudo apt-get install libwxbase3.2-0-unofficial \
@@ -23,25 +24,15 @@ jobs:
                 libwxgtk3.2-0-unofficial \
                 libwxgtk3.2unofficial-dev \
                 wx3.2-headers \
-                wx-common \
-                libwxgtk-media3.2-0-unofficial \
-                libwxgtk-media3.2unofficial-dev \
-                libwxgtk-webview3.2-0-unofficial \ 
-                libwxgtk-webview3.2unofficial-dev \ 
-                libwxgtk-webview3.2-0-unofficial-dbg \ 
-                libwxbase3.2-0-unofficial-dbg \
-                libwxgtk3.2-0-unofficial-dbg \
-                libwxgtk-media3.2-0-unofficial-dbg \
-                wx3.2-i18n \
-                wx3.2-examples
+                wx-common
+
     - name: make
       run: |
         cd ./src
-        make -j
-    - name: list directory
-      run: |
-        cd ./src
-        ls -R
+        git clone https://github.com/wxWidgets/wxWidgets --depth 1 --branch WX_3_0_BRANCH
+        ls $(pwd)/wxWidgets
+        make WXSTATIC=1 WX_ROOT=$(pwd)/wxWidgets wxbuild
+        make -j WXSTATIC=1
     - name: Upload release artifact
       uses: svenstaro/upload-release-action@v2
       with:
