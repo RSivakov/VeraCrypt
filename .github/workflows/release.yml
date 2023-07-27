@@ -37,7 +37,7 @@ jobs:
     - name: make
       run: |
         cd ./src
-        make -j WXSTATIC=1
+        make -j
     - name: list directory
       run: |
         cd ./src
