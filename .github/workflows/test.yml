@@ -30,5 +30,6 @@ jobs:
       run: |
         cd ./src
         git clone https://github.com/wxWidgets/wxWidgets --depth 1
-        make WXSTATIC=1 WX_ROOT=./wxWidgets wxbuild
+        ls $(pwd)/wxWidgets
+        make WXSTATIC=1 WX_ROOT=$(pwd)/wxWidgets wxbuild
         make -j WXSTATIC=1
